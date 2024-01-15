@@ -14,6 +14,7 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { MODELS } from '../constants'
+import { ArrowUpIcon } from '@radix-ui/react-icons'
 
 type propType = {
   setContent: React.Dispatch<React.SetStateAction<string>>
@@ -35,6 +36,7 @@ const ChatForm = ({ setContent, setIsLoading }: propType) => {
 
   const handleChatSubmit = async (values: z.infer<typeof formSchema>) => {
     setContent('')
+    form.reset()
     setIsLoading(true)
     const body = values
 
@@ -70,7 +72,7 @@ const ChatForm = ({ setContent, setIsLoading }: propType) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleChatSubmit)}
-        className="flex justify-center items-center gap-4"
+        className="flex justify-center items-center gap-4 w-full"
       >
         <FormField
           control={form.control}
@@ -83,7 +85,7 @@ const ChatForm = ({ setContent, setIsLoading }: propType) => {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a model" />
                   </SelectTrigger>
                   <SelectContent>
@@ -107,7 +109,7 @@ const ChatForm = ({ setContent, setIsLoading }: propType) => {
           control={form.control}
           render={({ field }) => {
             return (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormControl>Enter Valid Prompt</FormControl>
                 <Input
                   className="w-full"
@@ -118,7 +120,9 @@ const ChatForm = ({ setContent, setIsLoading }: propType) => {
             )
           }}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          <ArrowUpIcon />
+        </Button>
       </form>
     </Form>
   )

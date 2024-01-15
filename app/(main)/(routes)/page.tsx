@@ -10,18 +10,25 @@ export default function Home() {
   const [content, setContent] = useState('')
 
   return (
-    <div className="container">
-      <div className="m-2 flex mx-auto justify-center items-center gap-4">
+    <div className="container h-full flex flex-col items-center justify-between gap-4 p-4">
+      <div className="p-2 flex mx-auto justify-center items-center gap-4">
         <h1 className="text-3xl font-bold text-center">LLama UI</h1>
         <ModeToggle />
       </div>
 
-      <div className="container my-5 mx-auto">
-        <ChatForm setContent={setContent} setIsLoading={setIsLoading} />
-        {isLoading && <p className="m-4 text-center">Loading...</p>}
-        {!isLoading && content.length > 0 && (
-          <Card className="p-2 my-2">{content}</Card>
+      <Card className="w-full h-full p-2">
+        {!isLoading && content.length > 0 ? (
+          content
+        ) : (
+          <p className="text-muted-foreground">😏 Go ahead, ask me shit...</p>
         )}
+        {isLoading && (
+          <p className="m-4 text-center text-muted-foreground">Loading...</p>
+        )}
+      </Card>
+
+      <div className="w-full">
+        <ChatForm setContent={setContent} setIsLoading={setIsLoading} />
       </div>
     </div>
   )
